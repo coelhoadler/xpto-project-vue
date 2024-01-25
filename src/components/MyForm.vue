@@ -1,5 +1,5 @@
 <template>
-  <div class="box">
+  <div class="box form">
     <div class="columns">
       <div
         class="column is-8"
@@ -34,13 +34,17 @@ export default defineComponent({
       taskDescription: ''
     }
   },
+  emits: ['emitNewTask'],
   components: {
     Timer
   },
   methods: {
     submitTask(timeInSeconds) {
-      console.log('terminando task', timeInSeconds);
-      console.log('descricao da tarefa', this.taskDescription);
+      this.$emit('emitNewTask', {
+        timeInSeconds,
+        description: this.taskDescription
+      });
+
       this.taskDescription = '';
     }
   }
@@ -48,4 +52,9 @@ export default defineComponent({
 </script>
 
 
-<style scoped></style>
+<style>
+  .form {
+    background-color: var(--primary-bg);
+    color: var(--primary-text);
+  }
+</style>
